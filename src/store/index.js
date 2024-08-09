@@ -1,53 +1,58 @@
-import { createStore } from 'vuex'; // Importa la función createStore para crear una instancia de Vuex store
+// src/store/index.js
 
-// Crea una instancia del store de Vuex
+import { createStore } from 'vuex';
+
+/**
+ * Crea una tienda Vuex para gestionar el estado de la aplicación.
+ * 
+ * @module store
+ * @description Esta tienda gestiona el estado global de la aplicación, específicamente un contador en este caso.
+ * 
+ * @example
+ * import store from './store';
+ * 
+ * new Vue({
+ *   store,
+ *   // ... otras opciones
+ * });
+ */
+
 const store = createStore({
   /**
-   * Estado inicial de la aplicación.
+   * Estado inicial de la tienda.
    * 
-   * @returns {Object} Un objeto que contiene el estado inicial.
+   * @returns {Object} El estado inicial con un contador inicializado en 0.
    */
   state() {
     return {
-      count: 0 // Variable que almacena el contador, inicializado en 0
+      count: 0
     };
   },
+
+  /**
+   * Mutaciones para modificar el estado de la tienda.
+   * 
+   * @namespace mutations
+   */
   mutations: {
     /**
-     * Mutación para incrementar el valor del contador.
+     * Incrementa el valor del contador en el estado.
      * 
-     * @param {Object} state - El estado del store.
+     * @param {Object} state - El estado de la tienda.
      */
     increment(state) {
-      state.count += 1; // Aumenta el valor del contador en 1
+      state.count += 1;
     },
+
     /**
-     * Mutación para decrementar el valor del contador.
+     * Decrementa el valor del contador en el estado.
      * 
-     * @param {Object} state - El estado del store.
+     * @param {Object} state - El estado de la tienda.
      */
     decrement(state) {
-      state.count -= 1; // Disminuye el valor del contador en 1
+      state.count -= 1;
     }
   },
-  actions: {
-    /**
-     * Acción para incrementar el valor del contador.
-     * 
-     * @param {Object} context - El contexto del store, que incluye el método commit.
-     */
-    increment({ commit }) {
-      commit('increment'); // Llama a la mutación 'increment' para actualizar el estado
-    },
-    /**
-     * Acción para decrementar el valor del contador.
-     * 
-     * @param {Object} context - El contexto del store, que incluye el método commit.
-     */
-    decrement({ commit }) {
-      commit('decrement'); // Llama a la mutación 'decrement' para actualizar el estado
-    }
-  }
 });
 
-export default store; // Exporta la instancia del store para ser utilizada en la aplicación
+export default store;

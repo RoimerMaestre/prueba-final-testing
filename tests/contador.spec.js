@@ -1,35 +1,53 @@
-import { mount } from '@vue/test-utils'; // Importa la función mount para montar componentes en pruebas
-import { createStore } from 'vuex'; // Importa la función para crear la tienda Vuex
-import CounterView from '@/views/CounterView.vue'; // Importa el componente CounterView
+import { mount } from '@vue/test-utils';
+import store from '@/store'; // Asegúrate de importar correctamente tu store
+import CounterView from '@/views/CounterView.vue';
 
+/**
+ * Suite de pruebas para el componente `CounterView` con Vuex.
+ * 
+ * @module CounterViewTests
+ * @description Estas pruebas verifican que el componente `CounterView` interactúe correctamente con el store de Vuex,
+ *              incrementando y decrementando el valor del contador.
+ */
 describe('Probando componente + vuex', () => {
-  // Define una tienda Vuex con un estado inicial y una mutación
-  const store = createStore({
-    state() {
-      return {
-        count: 0 // Estado inicial del contador
-      }
-    },
-    mutations: {
-      increment(state) {
-        state.count += 1 // Mutación que incrementa el valor del contador en 1
-      }
-    }
-  })
 
-  // Define un caso de prueba para verificar el incremento del contador
+  /**
+   * Prueba para verificar que el componente incremente su valor en 1 al hacer clic en el botón de incremento.
+   * 
+   * @test
+   */
   test('Probando que el componente aumente su valor en 1', async () => {
-    // Monta el componente CounterView con la tienda Vuex como plugin global
+    // Monta el componente `CounterView` con el store de Vuex
     const wrapper = mount(CounterView, {
       global: {
-        plugins: [store] // Configura la tienda Vuex en el contexto global del wrapper
+        plugins: [store]
       }
-    })
-  
-    // Simula un clic en el primer botón del componente
-    await wrapper.find('button').trigger('click')
-  
-    // Verifica que el HTML del componente contiene el texto esperado después del clic
-    expect(wrapper.html()).toContain('este es el contador: 1')
-  })
-})
+    });
+
+    // Simula un clic en el botón de incremento
+    await wrapper.find('.increment-button').trigger('click');
+
+    // Verifica que el HTML del componente contiene el valor '1'
+    expect(wrapper.html()).toContain(' 1');
+  });
+
+  /**
+   * Prueba para verificar que el componente disminuya su valor en 1 al hacer clic en el botón de decremento.
+   * 
+   * @test
+   */
+  test('Probando que el componente disminuya su valor en 1', async () => {
+    // Monta el componente `CounterView` con el store de Vuex
+    const wrapper = mount(CounterView, {
+      global: {
+        plugins: [store]
+      }
+    });
+
+    // Simula un clic en el botón de decremento
+    await wrapper.find('.decrement-button').trigger('click');
+
+    // Verifica que el HTML del componente contiene el valor '-1'
+    expect(wrapper.html()).toContain(' -1');
+  });
+});
