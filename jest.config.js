@@ -1,3 +1,7 @@
 module.exports = {
-  preset: '@vue/cli-plugin-unit-jest'
+  verbose: true,
+  preset: '@vue/cli-plugin-unit-jest',
+  moduleNameMapper: {
+    '^entities': 'entities'
+ }
 }
